@@ -7,7 +7,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: '0 0 * * *' 
+    - cron: '0 0 * * *'
 
 jobs:
   cypress-chrome:
@@ -33,7 +33,7 @@ jobs:
           browser: chrome
           headed: true
           spec: cypress/e2e/**/*.feature
-          config: viewportWidth=1920,viewportHeight=1080,defaultCommandTimeout=10000
+          config: viewportWidth=1920,viewportHeight=1080,defaultCommandTimeout=10000,pageLoadTimeout=120000
           config-file: cypress.config.js
 
       - name: Run Cypress tests in Chrome (1366x768)
@@ -43,14 +43,8 @@ jobs:
           browser: chrome
           headed: true
           spec: cypress/e2e/**/*.feature
-          config: viewportWidth=1366,viewportHeight=768,defaultCommandTimeout=10000
+          config: viewportWidth=1366,viewportHeight=768,defaultCommandTimeout=10000,pageLoadTimeout=120000
           config-file: cypress.config.js
-
-      - name: Debug - Check report files (Chrome)
-        run: ls -la cypress/reports/
-
-      - name: Debug - Check screenshot files (Chrome)
-        run: ls -la cypress/screenshots/
 
       - name: Upload Mochawesome reports (Chrome)
         if: always()
@@ -82,7 +76,7 @@ jobs:
         run: npm ci
 
       - name: Check network connectivity
-        run: curl -I https://demoqa.com
+        run: curl -I https://demoqa.com || echo "Network check failed, retrying..." && curl -I https://demoqa.com
 
       - name: Run Cypress tests in Firefox (1920x1080)
         uses: cypress-io/github-action@v6
@@ -90,7 +84,7 @@ jobs:
           browser: firefox
           headed: true
           spec: cypress/e2e/**/*.feature
-          config: viewportWidth=1920,viewportHeight=1080,defaultCommandTimeout=10000
+          config: viewportWidth=1920,viewportHeight=1080,defaultCommandTimeout=15000,pageLoadTimeout=120000
           config-file: cypress.config.js
 
       - name: Run Cypress tests in Firefox (1366x768)
@@ -100,7 +94,7 @@ jobs:
           browser: firefox
           headed: true
           spec: cypress/e2e/**/*.feature
-          config: viewportWidth=1366,viewportHeight=768,defaultCommandTimeout=10000
+          config: viewportWidth=1366,viewportHeight=768,defaultCommandTimeout=15000,pageLoadTimeout=120000
           config-file: cypress.config.js
 
       - name: Debug - Check report files (Firefox)
