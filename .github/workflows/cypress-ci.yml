@@ -25,8 +25,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Check network connectivity
-        run: curl -I https://demoqa.com
+      - name: Preload critical pages
+        run: |
+          curl -s -o /dev/null https://demoqa.com
+          curl -s -o /dev/null https://demoqa.com/alerts
+          curl -s -o /dev/null https://demoqa.com/tool-tips
+          curl -s -o /dev/null https://demoqa.com/automation-practice-form
 
       - name: Run Cypress tests in Chrome (1920x1080)
         uses: cypress-io/github-action@v6
@@ -34,7 +38,7 @@ jobs:
           browser: chrome
           headed: true
           spec: cypress/e2e/**/*.feature
-          config: viewportWidth=1920,viewportHeight=1080,defaultCommandTimeout=10000,pageLoadTimeout=120000
+          config: viewportWidth=1920,viewportHeight=1080,defaultCommandTimeout=20000,pageLoadTimeout=300000
           config-file: cypress.config.js
 
       - name: Run Cypress tests in Chrome (1366x768)
@@ -44,7 +48,7 @@ jobs:
           browser: chrome
           headed: true
           spec: cypress/e2e/**/*.feature
-          config: viewportWidth=1366,viewportHeight=768,defaultCommandTimeout=10000,pageLoadTimeout=120000
+          config: viewportWidth=1366,viewportHeight=768,defaultCommandTimeout=20000,pageLoadTimeout=300000
           config-file: cypress.config.js
 
       - name: Upload Mochawesome reports (Chrome)
@@ -76,13 +80,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Check site is available
+      - name: Preload critical pages
         run: |
-          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" https://demoqa.com)
-          if [ "$RESPONSE" -ne 200 ]; then
-            echo "Site is unavailable (HTTP $RESPONSE). Failing the job."
-            exit 1
-          fi
+          curl -s -o /dev/null https://demoqa.com
+          curl -s -o /dev/null https://demoqa.com/alerts
+          curl -s -o /dev/null https://demoqa.com/tool-tips
+          curl -s -o /dev/null https://demoqa.com/automation-practice-form
 
       - name: Run Cypress tests in Firefox (1920x1080)
         uses: cypress-io/github-action@v6
@@ -90,7 +93,7 @@ jobs:
           browser: firefox
           headed: true
           spec: cypress/e2e/**/*.feature
-          config: viewportWidth=1920,viewportHeight=1080,defaultCommandTimeout=15000,pageLoadTimeout=240000
+          config: viewportWidth=1920,viewportHeight=1080,defaultCommandTimeout=20000,pageLoadTimeout=300000
           config-file: cypress.config.js
 
       - name: Run Cypress tests in Firefox (1366x768)
@@ -100,14 +103,8 @@ jobs:
           browser: firefox
           headed: true
           spec: cypress/e2e/**/*.feature
-          config: viewportWidth=1366,viewportHeight=768,defaultCommandTimeout=15000,pageLoadTimeout=240000
+          config: viewportWidth=1366,viewportHeight=768,defaultCommandTimeout=20000,pageLoadTimeout=300000
           config-file: cypress.config.js
-
-      - name: Debug - Check report files (Firefox)
-        run: ls -la cypress/reports/
-
-      - name: Debug - Check screenshot files (Firefox)
-        run: ls -la cypress/screenshots/
 
       - name: Upload Mochawesome reports (Firefox)
         if: always()
