@@ -24,24 +24,33 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Check network connectivity
+        run: curl -I https://demoqa.com
+
       - name: Run Cypress tests in Chrome (1920x1080)
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
           headed: true
           spec: cypress/e2e/**/*.feature
-          config: viewportWidth=1920,viewportHeight=1080
+          config: viewportWidth=1920,viewportHeight=1080,defaultCommandTimeout=10000
           config-file: cypress.config.js
 
       - name: Run Cypress tests in Chrome (1366x768)
-        if: success() 
+        if: success()
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
           headed: true
           spec: cypress/e2e/**/*.feature
-          config: viewportWidth=1366,viewportHeight=768
+          config: viewportWidth=1366,viewportHeight=768,defaultCommandTimeout=10000
           config-file: cypress.config.js
+
+      - name: Debug - Check report files (Chrome)
+        run: ls -la cypress/reports/
+
+      - name: Debug - Check screenshot files (Chrome)
+        run: ls -la cypress/screenshots/
 
       - name: Upload Mochawesome reports (Chrome)
         if: always()
@@ -59,7 +68,7 @@ jobs:
 
   cypress-firefox:
     runs-on: ubuntu-latest
-    needs: cypress-chrome 
+    needs: cypress-chrome
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -72,13 +81,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Check network connectivity
+        run: curl -I https://demoqa.com
+
       - name: Run Cypress tests in Firefox (1920x1080)
         uses: cypress-io/github-action@v6
         with:
           browser: firefox
           headed: true
           spec: cypress/e2e/**/*.feature
-          config: viewportWidth=1920,viewportHeight=1080
+          config: viewportWidth=1920,viewportHeight=1080,defaultCommandTimeout=10000
           config-file: cypress.config.js
 
       - name: Run Cypress tests in Firefox (1366x768)
@@ -88,8 +100,14 @@ jobs:
           browser: firefox
           headed: true
           spec: cypress/e2e/**/*.feature
-          config: viewportWidth=1366,viewportHeight=768
+          config: viewportWidth=1366,viewportHeight=768,defaultCommandTimeout=10000
           config-file: cypress.config.js
+
+      - name: Debug - Check report files (Firefox)
+        run: ls -la cypress/reports/
+
+      - name: Debug - Check screenshot files (Firefox)
+        run: ls -la cypress/screenshots/
 
       - name: Upload Mochawesome reports (Firefox)
         if: always()
