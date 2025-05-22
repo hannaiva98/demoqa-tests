@@ -34,6 +34,7 @@ jobs:
           config-file: cypress.config.js
 
       - name: Run Cypress tests in Chrome (1366x768)
+        if: success() 
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
@@ -44,21 +45,21 @@ jobs:
 
       - name: Upload Mochawesome reports (Chrome)
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: mochawesome-reports-chrome
           path: cypress/reports/*.json
 
       - name: Upload Screenshots (Chrome)
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: cypress-screenshots-chrome
           path: cypress/screenshots/
 
   cypress-firefox:
     runs-on: ubuntu-latest
-    needs: cypress-chrome # Запускается после Chrome
+    needs: cypress-chrome 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -81,6 +82,7 @@ jobs:
           config-file: cypress.config.js
 
       - name: Run Cypress tests in Firefox (1366x768)
+        if: success()
         uses: cypress-io/github-action@v6
         with:
           browser: firefox
@@ -91,14 +93,14 @@ jobs:
 
       - name: Upload Mochawesome reports (Firefox)
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: mochawesome-reports-firefox
           path: cypress/reports/*.json
 
       - name: Upload Screenshots (Firefox)
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: cypress-screenshots-firefox
           path: cypress/screenshots/
