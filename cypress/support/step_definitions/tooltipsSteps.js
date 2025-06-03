@@ -2,7 +2,7 @@ import { Given, When, Then, After } from '@badeball/cypress-cucumber-preprocesso
 import ToolTipsPage from '../../pages/ToolTipsPage';
 
 const page = new ToolTipsPage();
-
+//TODO remove locators to the constructor section in Page Object
 Given('I open the tool tips page', () => {
   page.visit();
 });

@@ -2,7 +2,7 @@ class FormPage {
   visit() {
     cy.visit('https://demoqa.com/automation-practice-form');
   }
-
+//TODO remove locators to the constructor section in Page Object
   fillMandatoryFields() {
     cy.get('#firstName').type('Hanna');
     cy.get('#lastName').type('Ivanova');

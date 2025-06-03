@@ -6,7 +6,7 @@ const page = new AlertsPage();
 Given("I open the alerts page", () => {
   page.visit();
 });
-
+//TODO remove locators to the constructor section in Page Object
 When("I click on each alert button", () => {
   cy.on('window:alert', (text) => {
     cy.log(`Alert text: ${text}`);

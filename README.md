@@ -8,3 +8,16 @@
 
 ```bash
 npm install
+```
+
+# Review 
+* No description of how to launch tests
+* Will parallel launching implemented?
+* Use for a framework only english language
+* Remove all locators to the constructor in Page Objects.
+* Test does not contain random generated data
+* Create base step at least two "I open {string} page", "I click the {string} button"
+* How to launch tests with specific key word (tag)?
+* How to launch tests with specific window resolution?
+* At least 5 test scenarios are written, each using different locator strategies. css and xpath. which scenario uses which strategy?
+* add all reports to the gitignore. It's temporary local files

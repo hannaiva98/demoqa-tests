@@ -6,4 +6,5 @@ Feature: Select Menu functionality on demoqa.com
     When I select "Other" in Select One dropdown
     And I select "Green" in Old Style Select Menu
     When I select "volvo" and "audi" in Multiselect Dropdown
+    #TODO rewrite step to verify every field
     Then The selected options should be displayed correctly
