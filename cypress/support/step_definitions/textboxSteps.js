@@ -2,14 +2,14 @@ import { Given, When, Then, After } from "@badeball/cypress-cucumber-preprocesso
 import TextBoxPage from "../../pages/TextBoxPage";
 
 const page = new TextBoxPage();
-
+//TODO remove locators to the constructor section in Page Object
 Given("I visit the textbox page", () => {
   page.visit();
 });
 
 When("I enter {string} into the textbox", (text) => {
   page.enterText(text);
-  cy.wrap(text).as("submittedText"); 
+  cy.wrap(text).as("submittedText");
 });
 
 When("I submit the form", () => {
