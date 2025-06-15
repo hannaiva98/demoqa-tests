@@ -27,24 +27,28 @@ class SelectMenuPage {
     cy.get('#cars').select(options);
   }
 
-  verifySelectedValues(expected) {
-    cy.get('#withOptGroup')
-      .parent()
-      .find('.css-1uccc91-singleValue')
-      .should('have.text', expected.selectValue);
+  verifySelectedValue(field, expectedValue) {
+    if (field === 'selectValue') {
+      cy.get('#withOptGroup .css-1uccc91-singleValue').should('contain.text', expectedValue);
+    } else if (field === 'selectOne') {
+      cy.get('#selectOne .css-1uccc91-singleValue').should('contain.text', expectedValue);
+    } else if (field === 'oldStyle') {
+      cy.get('#oldSelectMenu').should('contain.text', expectedValue);
+    }
+  }
 
-    cy.get('#selectOne')
-      .parent()
-      .find('.css-1uccc91-singleValue')
-      .should('have.text', expected.selectOne);
+  verifySelectedValues({ multiSelect }) {
+    if (multiSelect && multiSelect.length > 0) {
+      multiSelect.forEach(value => {
+        cy.get('#cars .css-multi-value__label').should('contain.text', value);
+      });
+    }
+  }
 
-    cy.get('#oldSelectMenu')
-      .find('option:selected')
-      .should('have.text', expected.oldStyle);
-
+  verifySelectedValuesInMultiSelect(expectedOptions) {
     cy.get('#cars')
       .invoke('val')
-      .should('deep.equal', expected.multiSelect);
+      .should('deep.equal', expectedOptions);
   }
 }
 

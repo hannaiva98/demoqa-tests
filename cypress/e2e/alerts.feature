@@ -1,5 +1,8 @@
 Feature: Tooltips test
-# Is scenario about alerts?
-  Scenario: Hover over tooltips
-    Given I open the tool tips page
-    When I hover over each tooltip element
+
+# Checking the display of tooltips on hover
+
+Scenario: Hover over tooltips
+  Given I open the tool tips page
+  When I hover over each tooltip element
+  Then tooltips should appear

@@ -2,7 +2,7 @@ import { Given, When, Then, After } from "@badeball/cypress-cucumber-preprocesso
 import TextBoxPage from "../../pages/TextBoxPage";
 
 const page = new TextBoxPage();
-//TODO remove locators to the constructor section in Page Object
+
 Given("I visit the textbox page", () => {
   page.visit();
 });
@@ -19,7 +19,7 @@ When("I submit the form", () => {
 Then("I should see the submitted text", () => {
   cy.get("@submittedText").then(text => {
     cy.get("#output").should("be.visible");
-    cy.get("#output").should("contain.text", `Name:${text}`);
+    cy.get("#output").should("contain.text", `Name: ${text}`); 
   });
 });
 
