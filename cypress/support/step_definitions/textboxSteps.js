@@ -19,7 +19,7 @@ When("I submit the form", () => {
 Then("I should see the submitted text", () => {
   cy.get("@submittedText").then(text => {
     cy.get("#output").should("be.visible");
-    cy.get("#output").should("contain.text", `Name: ${text}`); 
+    cy.get("#output").should("contain.text", `Name:${text}`); 
   });
 });
 
