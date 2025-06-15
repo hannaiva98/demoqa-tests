@@ -1,24 +1,29 @@
 class AlertsPage {
+  constructor() {
+    this.simpleAlertButton = '#alertButton';
+    this.timerAlertButton = '#timerAlertButton';
+    this.confirmAlertButton = '#confirmButton';
+    this.promptAlertButton = '#promtButton';
+  }
+
   visit() {
-    return cy.visit("https://demoqa.com/alerts");
+    cy.visit('https://demoqa.com/alerts');
   }
 
   clickSimpleAlert() {
-    return cy.get('#alertButton').click().then(() => {
-      console.log('Clicked alert button');
-    });
+    return cy.get(this.simpleAlertButton).click();
   }
 
   clickTimerAlert() {
-    return cy.get('#timerAlertButton').click().wait(6000);
+    return cy.get(this.timerAlertButton).click();
   }
 
   clickConfirmAlert() {
-    return cy.get('#confirmButton').click();
+    return cy.get(this.confirmAlertButton).click();
   }
 
   clickPromptAlert() {
-    return cy.get('#promtButton').click();
+    return cy.get(this.promptAlertButton).click();
   }
 }
 

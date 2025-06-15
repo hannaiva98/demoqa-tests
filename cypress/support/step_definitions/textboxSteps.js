@@ -9,7 +9,7 @@ Given("I visit the textbox page", () => {
 
 When("I enter {string} into the textbox", (text) => {
   page.enterText(text);
-  cy.wrap(text).as("submittedText"); 
+  cy.wrap(text).as("submittedText");
 });
 
 When("I submit the form", () => {
@@ -19,7 +19,7 @@ When("I submit the form", () => {
 Then("I should see the submitted text", () => {
   cy.get("@submittedText").then(text => {
     cy.get("#output").should("be.visible");
-    cy.get("#output").should("contain.text", `Name:${text}`);
+    cy.get("#output").should("contain.text", `Name:${text}`); 
   });
 });
 

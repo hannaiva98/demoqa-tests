@@ -2,7 +2,6 @@ import { Given, When, Then, After } from '@badeball/cypress-cucumber-preprocesso
 import ToolTipsPage from '../../pages/ToolTipsPage';
 
 const page = new ToolTipsPage();
-
 Given('I open the tool tips page', () => {
   page.visit();
 });
